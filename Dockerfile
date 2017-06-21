@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN curl -sSLO http://ceres-solver.org/ceres-solver-1.12.0.tar.gz \
     && tar zxf ceres-solver-1.12.0.tar.gz \
     && cd ceres-solver-1.12.0 \
-    && cmake . -G Ninja \
+    && cmake -G Ninja -D CMAKE_BUILD_TYPE=Release . \
     && ninja \
     && ninja install \
     && cd .. \
@@ -27,7 +27,7 @@ RUN curl -sSLO https://github.com/opencv/opencv/archive/2.4.8.tar.gz \
     && curl -sSL https://github.com/opencv/opencv/commit/60a5ada4541e777bd2ad3fe0322180706351e58b.patch | patch -d opencv-2.4.8 -p1 \
     && curl -sSL https://github.com/opencv/opencv/commit/10896129b39655e19e4e7c529153cb5c2191a1db.patch | patch -d opencv-2.4.8/modules/gpu -p3 \
     && cd opencv-2.4.8 \
-    && cmake -G Ninja -D CUDA_GENERATION=Kepler . \
+    && cmake -G Ninja -D CMAKE_BUILD_TYPE=Release -D CUDA_GENERATION=Kepler . \
     && ninja \
     && ninja install \
     && cd .. \
@@ -38,7 +38,7 @@ RUN curl -sSLO https://github.com/PointCloudLibrary/pcl/archive/pcl-1.8.0.tar.gz
     && tar zxf pcl-1.8.0.tar.gz \
     && cd pcl-pcl-1.8.0 \
     && sed -i -- 's/SET(CMAKE_CXX_FLAGS "-Wall/SET(CMAKE_CXX_FLAGS "-std=c++11 -Wall/g' CMakeLists.txt \
-    && cmake . -G Ninja \
+    && cmake -G Ninja -D CMAKE_BUILD_TYPE=Release . \
     && ninja \
     && ninja install \
     && cd .. \
