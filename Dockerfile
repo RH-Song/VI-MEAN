@@ -68,6 +68,8 @@ RUN /bin/bash -c "source /opt/ros/indigo/setup.bash && catkin_make --use-ninja"
 # sudo nvidia-docker run -it --rm --volume=`pwd`:/src --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" $IMAGE_HASH bash
 # source /opt/ros/indigo/setup.bash
 # source /catkin_ws/devel/setup.bash
-# source /catkin_ws/devel/setup.bash
 # roslaunch stereo_mapper sample_all.launch &
 # rosbag play /src/sample.bag
+#
+# Ref:
+# http://wiki.ros.org/docker/Tutorials/GUI
