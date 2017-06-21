@@ -27,7 +27,7 @@ RUN curl -sSLO https://github.com/opencv/opencv/archive/2.4.8.tar.gz \
     && curl -sSL https://github.com/opencv/opencv/commit/60a5ada4541e777bd2ad3fe0322180706351e58b.patch | patch -d opencv-2.4.8 -p1 \
     && curl -sSL https://github.com/opencv/opencv/commit/10896129b39655e19e4e7c529153cb5c2191a1db.patch | patch -d opencv-2.4.8/modules/gpu -p3 \
     && cd opencv-2.4.8 \
-    && cmake . -G Ninja -DCUDA_GENERATION=Auto -DENABLE_DYNAMIC_CUDA=ON \
+    && cmake -G Ninja -D CUDA_GENERATION=Kepler . \
     && ninja \
     && ninja install \
     && cd .. \
