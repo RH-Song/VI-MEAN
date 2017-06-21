@@ -34,6 +34,7 @@ RUN curl -sSLO https://github.com/opencv/opencv/archive/2.4.8.tar.gz \
     && rm -rf opencv-2.4.8
 ENV CMAKE_PREFIX_PATH=/usr/local:$CMAKE_PREFIX_PATH
 
+# OpenChisel's requirement
 RUN curl -sSLO https://github.com/PointCloudLibrary/pcl/archive/pcl-1.8.0.tar.gz \
     && tar zxf pcl-1.8.0.tar.gz \
     && cd pcl-pcl-1.8.0 \
@@ -46,6 +47,7 @@ RUN curl -sSLO https://github.com/PointCloudLibrary/pcl/archive/pcl-1.8.0.tar.gz
 
 RUN mkdir -p /catkin_ws/src
 WORKDIR /catkin_ws/src
+# OpenChisel's requirement
 RUN curl -sSLO https://github.com/ros-perception/perception_pcl/archive/indigo-devel.tar.gz \
     && tar zxf indigo-devel.tar.gz \
     && rm indigo-devel.tar.gz \
@@ -60,3 +62,12 @@ RUN mkdir -p /catkin_ws/src/VI-MEAN
 COPY . /catkin_ws/src/VI-MEAN
 
 RUN /bin/bash -c "source /opt/ros/indigo/setup.bash && catkin_make --use-ninja"
+
+# To run a sample.bag:
+# xhost +local:root
+# sudo nvidia-docker run -it --rm --volume=`pwd`:/src --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" $IMAGE_HASH bash
+# source /opt/ros/indigo/setup.bash
+# source /catkin_ws/devel/setup.bash
+# source /catkin_ws/devel/setup.bash
+# roslaunch stereo_mapper sample_all.launch &
+# rosbag play /src/sample.bag
